@@ -1,6 +1,8 @@
 import React from 'react'
 import FilterableMainTable from '../components/filterableMainTable'
 const axios = require('axios')
+import {Button, Form, Col,Row} from 'react-bootstrap';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 
 const PRODUCTS = [
@@ -29,8 +31,13 @@ class Main extends React.Component {
     searchButtonClicked=()=>{
         console.log('button clicked', this.state)
         let newMovieName = this.state.filterText;
-        let newPaginationNumber = this.state.totalResult;
-        this.apiCallTogetData(newMovieName,1); 
+        //let newPaginationNumber = this.state.totalResult;
+        if(newMovieName !== ""){
+            this.apiCallTogetData(newMovieName,1);
+        }else{
+            alert('Movie Name Not Found. Kindly Enter the Movie Name',newMovieName)
+        }
+         
     }
     apiCallTogetData = (name, page) =>{
         console.log('apicalltogetdata',name,page)
@@ -69,12 +76,25 @@ class Main extends React.Component {
       return (
         <div>
             <div>
-                <input 
-                    type="text" 
-                    placeholder="Search..."
-                    value={this.state.filterText}
-                    onChange={this.handleFilterTextChange} />
-                <button type="submit" onClick={this.searchButtonClicked}>Search</button>
+                <Row>
+                    <Col sm={4}>
+                        <Form.Control 
+                            size="sm" 
+                            type="text" 
+                            placeholder="Search..."
+                            value={this.state.filterText}
+                            onChange={this.handleFilterTextChange} />
+                    </Col>
+                    <Col sm={4}>
+                        <Button 
+                            type="submit" 
+                            variant="primary" 
+                            size="sm"
+                            onClick={this.searchButtonClicked}>Search</Button>
+                    </Col>    
+                </Row>
+                
+                
             </div>
             <FilterableMainTable products={this.state.data}/>
         </div>

@@ -3,9 +3,7 @@ import Link from 'next/link';
 import React, { Component } from 'react';
 import Layout from '../components/layout'
 import Main from '../components/main'
-
-
-
+import Head from 'next/head'
 
 const Index = () => {
   return(

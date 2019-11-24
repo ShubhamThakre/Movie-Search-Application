@@ -21,8 +21,10 @@
   "homepage": "https://github.com/ShubhamThakre/Movie-Search-Application#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
     "next": "^9.1.4",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.12.0"
   }
 }
