@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ShubhamThakre/Movie-Search-Application#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "next": "^9.1.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
