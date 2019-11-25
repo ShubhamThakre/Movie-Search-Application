@@ -4,7 +4,9 @@ import Layout from '../components/layout'
 
 const Index = () => (
     <Layout> 
-      <p>I am about page.</p>
+      <div style={{padding:'0px 15px'}}>
+        <span>Coming soon..</span>
+      </div>
     </Layout>
   )
   

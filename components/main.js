@@ -110,7 +110,7 @@ class Main extends React.Component {
     apiCallTogetData = (page) =>{
         let name= this.state.filterText ? this.state.filterText : "batman";
         console.log('apicalltogetdata',name,page)
-        axios.get(`http://www.omdbapi.com/?apikey=b1f770e7&page=${page}&s=${name}`)
+        axios.get(`https://www.omdbapi.com/?apikey=b1f770e7&page=${page}&s=${name}`)
             .then( (response) =>{
                 // handle success
                 console.log(response.data.Response,response.data.Search,response.data.totalResults);
@@ -153,9 +153,12 @@ class Main extends React.Component {
             let classes = this.state.current_page === number ? styles.active : '';
           
             return (
-                <Pagination.Item key={number} active={classes} onClick={() => this.apiCallTogetData(number)}>
-                 {number}
+                <div style={{display: 'inline-block'}}>
+                    <Pagination.Item key={number} active={classes} onClick={() => this.apiCallTogetData(number)}>
+                    {number}
                 </Pagination.Item>
+                </div>
+                
             );
         });
 
@@ -170,7 +173,7 @@ class Main extends React.Component {
         // }
 
         const paginationBasic = (
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center" >
             <Pagination size="sm">{renderPageNumbers}</Pagination>
         </Row>
         );
@@ -179,7 +182,7 @@ class Main extends React.Component {
         <div>
             <div>
                 <Row>
-                    <Col sm={4}>
+                    <Col sm={4} style={{padding: '0px 10px',margin: '0px -20px 0px 20px'}}>
                         <Form.Control 
                             size="sm" 
                             type="text" 

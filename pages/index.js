@@ -8,7 +8,6 @@ import Head from 'next/head'
 const Index = () => {
   return(
       <Layout>
-        <p>Hello Next.js</p>
         <Main />
       </Layout>
   );
