@@ -1,7 +1,7 @@
 import React from 'react'
 import FilterableMainTable from '../components/filterableMainTable'
 const axios = require('axios')
-import {Button, Form, Col,Row} from 'react-bootstrap';
+import {Button, Form, Col,Row,Pagination} from 'react-bootstrap';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 
@@ -101,25 +101,26 @@ class Main extends React.Component {
         let newMovieName = this.state.filterText;
         //let newPaginationNumber = this.state.totalResult;
         if(newMovieName !== ""){
-            this.apiCallTogetData(newMovieName,1);
+            this.apiCallTogetData(1);
         }else{
             alert('Movie Name Not Found. Kindly Enter the Movie Name',newMovieName)
         }
          
     }
-    apiCallTogetData = (name, page) =>{
+    apiCallTogetData = (page) =>{
+        let name= this.state.filterText ? this.state.filterText : "batman";
         console.log('apicalltogetdata',name,page)
-        axios.get(`http://www.omdbapi.com/?apikey=b1f770e7&${page}=1&s=${name}`)
+        axios.get(`http://www.omdbapi.com/?apikey=b1f770e7&page=${page}&s=${name}`)
             .then( (response) =>{
                 // handle success
                 console.log(response.data.Response,response.data.Search,response.data.totalResults);
-                const responseTotalResults = Math.ceil(response.data.totalResults/10);
+                
                 if(response.data.Search){
                     console.log('in if');
                     this.setState({
                         data: response.data.Search,
-                        totalResult: responseTotalResults
-                    });
+                        totalResult: response.data.totalResults
+                    },console.log('number total for pagination',this.state));
                 }else{
                     console.log('out if');
                     this.setState({
@@ -139,11 +140,41 @@ class Main extends React.Component {
             });
     }
     componentDidMount = () =>{
-        const name="batman";
+        
         const page=1;
-        this.apiCallTogetData(name,page);
+        this.apiCallTogetData(page);
     }
     render() {
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.totalResult / 10); i++) {
+            pageNumbers.push(i);
+        }
+        let renderPageNumbers = pageNumbers.map(number => {
+            let classes = this.state.current_page === number ? styles.active : '';
+          
+            return (
+                <Pagination.Item key={number} active={classes} onClick={() => this.apiCallTogetData(number)}>
+                 {number}
+                </Pagination.Item>
+            );
+        });
+
+        // let active = 2;
+        // let items = [];
+        // for (let number = 1; number <= 5; number++) {
+        //     items.push(
+        //         <Pagination.Item key={number} active={number === active} onClick={() => this.apiCallTogetData(number)}>
+        //         {number}
+        //         </Pagination.Item>,
+        //     );
+        // }
+
+        const paginationBasic = (
+        <Row className="justify-content-md-center">
+            <Pagination size="sm">{renderPageNumbers}</Pagination>
+        </Row>
+        );
+
       return (
         <div>
             <div>
@@ -168,6 +199,10 @@ class Main extends React.Component {
                 
             </div>
             <FilterableMainTable products={this.state.data}/>
+            <div>
+                {paginationBasic}
+            </div>
+
         </div>
       );
     }
