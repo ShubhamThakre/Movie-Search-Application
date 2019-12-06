@@ -8,7 +8,9 @@ URL- https://movie-database-search.herokuapp.com/
 
 
 references: 
+
 OMDB API url- http://www.omdbapi.com
+
 cloud platform- HEROKU
 
 
